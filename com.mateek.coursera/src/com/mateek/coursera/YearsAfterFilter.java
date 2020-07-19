@@ -9,10 +9,19 @@ package com.mateek.coursera;
  */
 public class YearsAfterFilter implements Filter {
 	
-	Integer year;
+	private Integer year;
 	
+
 	public YearsAfterFilter(Integer year) {
 		super();
+		this.setYear(year);
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

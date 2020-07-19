@@ -10,6 +10,9 @@ public class AllFilters implements Filter{
 	
 	private ArrayList<Filter> filters;
 	
+	public AllFilters() {
+		filters = new ArrayList<Filter>();
+	}
 	/**
 	 * add a Filter to the ArrayList filters
 	 * @param f

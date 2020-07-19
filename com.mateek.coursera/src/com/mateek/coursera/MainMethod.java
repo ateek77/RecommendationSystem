@@ -6,8 +6,19 @@ public class MainMethod {
 //		// pass the file name for load the movies.
 //		finalRatings.testLoadMovies();
 //		finalRatings.testLoadRaters();
-		MovieRunnerAverage movieRunnerAverage = new MovieRunnerAverage();
-		movieRunnerAverage.printAverageRatings();
-		movieRunnerAverage.getAverageRatingOneMovie();
+		String movieFilePath =  "C:\\\\Users\\mateek\\Downloads\\coursera\\StepOneStarterProgram\\data\\ratedmoviesfull.csv";
+		//String movieFilePath = "C:\\\\Users\\mateek\\Downloads\\coursera\\StepOneStarterProgram\\data\\ratedmovies_short.csv";
+		MovieDatabase.init(movieFilePath);
+		//MovieRunnerAverage movieRunnerAverage = new MovieRunnerAverage();
+		//movieRunnerAverage.printAverageRatings();
+		//movieRunnerAverage.getAverageRatingOfMovie();
+		MovieRunnerWithFilters movieRunnerWithFilters = new MovieRunnerWithFilters();
+		//movieRunnerWithFilters.printAverageRatings();
+		//movieRunnerWithFilters.printAverageRatingsByYear();
+//		movieRunnerWithFilters.printAverageRatingsByGenre();
+//		movieRunnerWithFilters.printAverageRatingsByMinutes();
+//		movieRunnerWithFilters.printAverageRatingsByDirectors();
+//		movieRunnerWithFilters.printAverageRatingsByYearAfterAndGenre();
+		movieRunnerWithFilters.printAverageRatingsByDirectorsAndMinutes();
 	}
 }

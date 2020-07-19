@@ -15,12 +15,11 @@ public class MovieRunnerAverage {
 		}
 		
 	}
-	public void getAverageRatingOneMovie() {
-		SecondRatings secondRatings = new SecondRatings();
-		String mtitle = "Vacation";
-		String mId  = secondRatings.getID(mtitle);
+	public void getAverageRatingOfMovie(String movieTitle) {
+		SecondRatings secondRatings = new SecondRatings();		
+		String mId  = secondRatings.getID(movieTitle);
 		//System.out.println(mId);
 		Double avgRating = secondRatings.getMovieAverageRating(mId);
-		System.out.println(mtitle + "- movie avg rating = " + avgRating);
+		System.out.println(movieTitle + "- movie avg rating = " + avgRating);
 	}
 }

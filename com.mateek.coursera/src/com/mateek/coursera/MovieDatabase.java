@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -21,19 +22,21 @@ import org.apache.commons.csv.CSVRecord;
  */
 public class MovieDatabase {
 	private static HashMap<String, Movie> movieMap ;//= new HashMap<String, Movie>();
-	
+	private static Boolean initilized = false;
 	public static void init(String movieFilePath) {
+		
 		if(movieFilePath!= null && !movieFilePath.isEmpty())
 			loadMovies(movieFilePath);
 		else
 			init();
+		initilized = true;
 	}
 	private static void init() {
 		String filePath = "C:\\\\Users\\mateek\\Downloads\\coursera\\StepOneStarterProgram\\data\\ratedmoviesfull.csv";
 		loadMovies(filePath);
 	}
 	private static void loadMovies(String filePath) {
-    	
+		movieMap = new HashMap<String, Movie>();
     	try{
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
             reader.read();
@@ -117,7 +120,7 @@ public class MovieDatabase {
 			movieGenres = genres.split(",");
 			List<String> genresList = new ArrayList<String>();
 			for (String string : movieGenres) {
-				genresList.add(string);
+				genresList.add(string.trim());
 			}
 			return genresList;
 		}
@@ -132,7 +135,7 @@ public class MovieDatabase {
 			movieGenres = genres.split(",");
 			List<String> genresList = new ArrayList<String>();
 			for (String string : movieGenres) {
-				genresList.add(string);
+				genresList.add(string.trim());
 			}
 			return genresList;
 		}
@@ -142,7 +145,14 @@ public class MovieDatabase {
 		return movieMap.size();
 	}
 	public static List<String> filterBy(Filter f) {
-		
+		Set<String> movies = movieMap.keySet();
+		List<String> movieList = new ArrayList<String>();
+		for (String movieID : movies) {
+			if(f.satisfies(movieID)) {
+				movieList.add(movieID);
+			}
+		}
+		return movieList;
 	}
 	
 }
