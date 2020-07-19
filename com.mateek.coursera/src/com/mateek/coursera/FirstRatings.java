@@ -82,7 +82,7 @@ public class FirstRatings {
             	Double time = Double.parseDouble(csvRecord.get(3));
             	Rater rater = raterMap.get(raterId);
             	if(rater == null) {
-            		rater = new Rater(raterId);
+            		rater = new EfficientRater(raterId);
             	}
             	rater.addRating(movieId, rating);  
             	raterMap.put(raterId, rater);
@@ -282,7 +282,7 @@ public class FirstRatings {
     	while(itr.hasNext()) {
     		Rater rater = (Rater) itr.next();
     		if(rater.getID().equals(raterId.toString())){
-    			List rating = rater.getItemsRated();
+    			Set rating = rater.getItemsRated();
     			return rating.size();
     		}
     	}
@@ -346,7 +346,7 @@ public class FirstRatings {
     	Set<String> ratedMovieSet = new HashSet<String>();
     	while(itr.hasNext()) {
     		Rater rater = (Rater) itr.next();
-    		List<String> itemList = rater.getItemsRated();
+    		Set<String> itemList = rater.getItemsRated();
     		ratedMovieSet.addAll(itemList);
     	}
     	List<String> mr = new ArrayList<>(ratedMovieSet);
