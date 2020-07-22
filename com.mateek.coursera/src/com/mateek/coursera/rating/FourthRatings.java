@@ -1,6 +1,7 @@
 package com.mateek.coursera.rating;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -104,7 +105,9 @@ public class FourthRatings {
      * @param rRater
      * @return Double
      */
-    private Double getSimilarities(Rater mRater, Rater rRater) {
+    private Double dotProduct(Rater mRater, Rater rRater) {
+    	if(mRater.getID().equals(rRater.getID()))
+    		return (double) -1;
     	
     	Set<String> mRatedmovie = mRater.getItemsRated();
     	Set<String> rRatedmovie = rRater.getItemsRated();
@@ -121,6 +124,34 @@ public class FourthRatings {
     	return similaritiesIndex;
     }
     
+    /**
+     * @param raterId
+     * @return
+     */
+    private List getSimilarities(String raterId) {
+		List ratersList = RaterDatabase.getRaters();
+		List ratingList = new ArrayList<Rating>();
+		Rater mRater = RaterDatabase.getRater(raterId);
+		Iterator it = ratersList.iterator();
+		while(it.hasNext()){
+			Rater tRater = (Rater) it.next();
+			Double similar = dotProduct(mRater, tRater);
+			if(similar >= 0) {
+				Rating rating = new Rating(tRater.getID(),similar);
+				ratingList.add(rating);
+			}			
+		}   	
+    	return ratingList;
+	}
+    /**
+     * @param raterId
+     * @param numSimilarRaters
+     * @param minimalRaters
+     * @return
+     */
+    public List getSimilarRatings(String raterId,Integer numSimilarRaters,Integer minimalRaters) {
+    	return null;
+    }
     
     /**
      * the title of the movie with that ID
