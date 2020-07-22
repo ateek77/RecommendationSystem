@@ -16,6 +16,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import com.mateek.coursera.filters.Filter;
+
 /**
  * @author mateek
  *

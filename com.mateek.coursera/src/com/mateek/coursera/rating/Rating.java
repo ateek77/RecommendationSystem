@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mateek.coursera;
+package com.mateek.coursera.rating;
 
 /**
  * @author mateek

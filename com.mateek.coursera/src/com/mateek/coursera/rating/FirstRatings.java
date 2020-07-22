@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mateek.coursera;
+package com.mateek.coursera.rating;
 
 
 import java.io.Reader;
@@ -20,6 +20,10 @@ import java.util.Set;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+
+import com.mateek.coursera.Movie;
+import com.mateek.coursera.rater.EfficientRater;
+import com.mateek.coursera.rater.Rater;
 /**
  * @author mateek
  *

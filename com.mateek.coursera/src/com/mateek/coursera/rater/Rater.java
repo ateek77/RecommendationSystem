@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mateek.coursera;
+package com.mateek.coursera.rater;
 
 import java.util.Set;
 

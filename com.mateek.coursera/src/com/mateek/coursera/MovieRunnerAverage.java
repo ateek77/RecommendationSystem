@@ -2,6 +2,9 @@ package com.mateek.coursera;
 
 import java.util.List;
 
+import com.mateek.coursera.rating.Rating;
+import com.mateek.coursera.rating.SecondRatings;
+
 public class MovieRunnerAverage {
 	public void printAverageRatings() {
 		SecondRatings secondRatings = new SecondRatings();

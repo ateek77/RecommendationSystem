@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.mateek.coursera;
+package com.mateek.coursera.filters;
 
 import java.util.List;
+
+import com.mateek.coursera.MovieDatabase;
 
 /**
  * @author mateek

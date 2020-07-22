@@ -1,7 +1,10 @@
-package com.mateek.coursera;
+package com.mateek.coursera.rating;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mateek.coursera.Movie;
+import com.mateek.coursera.rater.Rater;
 
 public class SecondRatings {
     private ArrayList<Movie> myMovies;

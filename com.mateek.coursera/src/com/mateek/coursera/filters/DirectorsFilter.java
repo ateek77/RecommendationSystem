@@ -1,8 +1,10 @@
-package com.mateek.coursera;
+package com.mateek.coursera.filters;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.mateek.coursera.MovieDatabase;
 
 public class DirectorsFilter implements Filter {
 

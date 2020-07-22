@@ -2,6 +2,15 @@ package com.mateek.coursera;
 
 import java.util.List;
 
+import com.mateek.coursera.filters.AllFilters;
+import com.mateek.coursera.filters.DirectorsFilter;
+import com.mateek.coursera.filters.Filter;
+import com.mateek.coursera.filters.GenreFilter;
+import com.mateek.coursera.filters.MinutesFilter;
+import com.mateek.coursera.filters.YearsAfterFilter;
+import com.mateek.coursera.rating.Rating;
+import com.mateek.coursera.rating.ThirdRatings;
+
 public class MovieRunnerWithFilters {
 	ThirdRatings thirdRatings;
 	

@@ -1,11 +1,13 @@
 /**
  * 
  */
-package com.mateek.coursera;
+package com.mateek.coursera.rater;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.mateek.coursera.rating.Rating;
 
 /**
  * @author mateek

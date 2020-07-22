@@ -1,4 +1,6 @@
-package com.mateek.coursera;
+package com.mateek.coursera.filters;
+
+import com.mateek.coursera.MovieDatabase;
 
 /**
  * @author mateek

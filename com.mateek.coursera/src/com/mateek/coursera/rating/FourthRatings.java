@@ -2,27 +2,29 @@ package com.mateek.coursera.rating;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.mateek.coursera.MovieDatabase;
 import com.mateek.coursera.filters.Filter;
 import com.mateek.coursera.filters.TrueFilter;
 import com.mateek.coursera.rater.Rater;
+import com.mateek.coursera.rater.RaterDatabase;
 
-public class ThirdRatings {
-    private ArrayList<Rater> myRaters;
-    
-    public ThirdRatings() {
+public class FourthRatings {
+        
+    public FourthRatings() {
         // default constructor
         this( "C:\\\\Users\\mateek\\Downloads\\coursera\\StepOneStarterProgram\\data\\ratings.csv");
         //this("C:\\\\Users\\mateek\\Downloads\\coursera\\StepOneStarterProgram\\data\\ratings_short.csv");
     }
-    public ThirdRatings(String ratingsFileLoc) {
-    	FirstRatings firstRatings = new FirstRatings();
-    	myRaters = (ArrayList<Rater>) firstRatings.loadRaters(ratingsFileLoc);
+    public FourthRatings(String ratingsFileLoc) {
+    	RaterDatabase.initialize(ratingsFileLoc);
+    	//FirstRatings firstRatings = new FirstRatings();
+    	//myRaters = (ArrayList<Rater>) firstRatings.loadRaters(ratingsFileLoc);
     	
     }
     public Integer getRaterSize() {
-    	return myRaters.size();
+    	return RaterDatabase.size();
     }
     
     /**
@@ -34,9 +36,9 @@ public class ThirdRatings {
      */
     private Double getAverageByID(String movieId, Integer minimalRaters) {
     	Integer count =0;
-
+    	ArrayList<Rater>  ratersList= RaterDatabase.getRaters();
     	Double avgRating = (double) 0;
-    	for (Rater rater : myRaters) {
+    	for (Rater rater : ratersList) {
     		Double rating = rater.getRating(movieId);
     		if(rating != -1) {
     			avgRating += rating;
@@ -50,6 +52,12 @@ public class ThirdRatings {
     	}
     	return (double) 0;
     }
+    
+    /**
+     * get movie avg rating
+     * @param movieId
+     * @return
+     */
     public Double getMovieAverageRating(String movieId) {
 		return getAverageByID(movieId, 0);
 	}
@@ -89,6 +97,30 @@ public class ThirdRatings {
 		}    	
     	return ratingList;		
 	}
+    
+    /**
+     * get similarities between 2 rater
+     * @param mRater
+     * @param rRater
+     * @return Double
+     */
+    private Double getSimilarities(Rater mRater, Rater rRater) {
+    	
+    	Set<String> mRatedmovie = mRater.getItemsRated();
+    	Set<String> rRatedmovie = rRater.getItemsRated();
+    	Double similaritiesIndex = (double) 0;
+    	Integer indexValue = 5;
+    	
+    	for (String movie : mRatedmovie) {
+			if(rRatedmovie.contains(movie)) {
+				Double mRating = mRater.getRating(movie) - indexValue;
+				Double rRating = rRater.getRating(movie) - indexValue;
+				similaritiesIndex += mRating * rRating ; 
+			}
+		}
+    	return similaritiesIndex;
+    }
+    
     
     /**
      * the title of the movie with that ID
