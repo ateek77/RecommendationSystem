@@ -12,13 +12,15 @@ public class MainMethod {
 		//MovieRunnerAverage movieRunnerAverage = new MovieRunnerAverage();
 		//movieRunnerAverage.printAverageRatings();
 		//movieRunnerAverage.getAverageRatingOfMovie();
-		MovieRunnerWithFilters movieRunnerWithFilters = new MovieRunnerWithFilters();
+//		MovieRunnerWithFilters movieRunnerWithFilters = new MovieRunnerWithFilters();
 		//movieRunnerWithFilters.printAverageRatings();
 		//movieRunnerWithFilters.printAverageRatingsByYear();
 //		movieRunnerWithFilters.printAverageRatingsByGenre();
 //		movieRunnerWithFilters.printAverageRatingsByMinutes();
 //		movieRunnerWithFilters.printAverageRatingsByDirectors();
 //		movieRunnerWithFilters.printAverageRatingsByYearAfterAndGenre();
-		movieRunnerWithFilters.printAverageRatingsByDirectorsAndMinutes();
+		//movieRunnerWithFilters.printAverageRatingsByDirectorsAndMinutes();
+		MovieRunnerSimilarRatings movieRunnerSimilarRatings = new MovieRunnerSimilarRatings();
+		movieRunnerSimilarRatings.printSimilarRatings();
 	}
 }

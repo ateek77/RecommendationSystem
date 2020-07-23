@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.mateek.coursera.Movie;
 import com.mateek.coursera.MovieDatabase;
 import com.mateek.coursera.filters.Filter;
 import com.mateek.coursera.filters.TrueFilter;
@@ -125,6 +126,11 @@ public class FourthRatings {
     }
     
     /**
+     * returns an ArrayList of type Rating sorted by ratings 
+     * from highest to lowest rating with the highest rating 
+     * first and only including those raters who have a 
+     * positive similarity rating since those with negative
+     *  values are not similar in any way.
      * @param raterId
      * @return
      */
@@ -141,16 +147,74 @@ public class FourthRatings {
 				ratingList.add(rating);
 			}			
 		}   	
+		ratingList.sort(null);
     	return ratingList;
 	}
     /**
+     * This method should return an ArrayList of type Rating, 
+     * of movies and their weighted average ratings using only 
+     * the top numSimilarRaters with positive ratings and including only 
+     * those movies that have at least minimalRaters ratings from
+     *  those most similar raters (not just minimalRaters ratings overall)
      * @param raterId
      * @param numSimilarRaters
      * @param minimalRaters
      * @return
      */
     public List getSimilarRatings(String raterId,Integer numSimilarRaters,Integer minimalRaters) {
-    	return null;
+    	List ratingList = new ArrayList<Rating>();
+    	List similarRater = getSimilarities(raterId);// return rater id and similarity
+    	for(int i = numSimilarRaters; i< similarRater.size(); ++i ) {
+    		similarRater.remove(i);
+    	}
+    	
+    	List movieList = MovieDatabase.filterBy(new TrueFilter());
+    	
+    	for (Object movieId : movieList) {			
+			Integer ratingCount = 0;
+			Double weightedRating = new Double(0);
+			for (Object object : similarRater) {
+				Rating rating = (Rating) object;//raterId-simiValue
+				Rater rater = RaterDatabase.getRater(rating.getItem());
+				Double movieRating = rater.getRating((String) movieId);
+				weightedRating += movieRating * rating.getValue();
+				++ratingCount;
+			}
+			if(ratingCount>=minimalRaters) {
+				Rating rating = new Rating((String) movieId, weightedRating/ratingCount);
+				ratingList.add(rating);				
+			}			
+		}    	
+    	return ratingList;
+    }
+    
+    
+    public List getSimilarRatingsByFilter(String raterId,Integer numSimilarRaters,Integer minimalRaters, Filter filterCriteria) {
+    	List ratingList = new ArrayList<Rating>();
+    	List similarRater = getSimilarities(raterId);// return rater id and similarity
+    	for(int i = numSimilarRaters; i< similarRater.size(); ++i ) {
+    		similarRater.remove(i);
+    	}
+    	
+    	List movieList = MovieDatabase.filterBy(filterCriteria);
+    	
+    	for (Object tMovie : movieList) {
+			Movie movie = (Movie) tMovie;
+			Integer ratingCount = 0;
+			Double weightedRating = new Double(0);
+			for (Object object : similarRater) {
+				Rating rating = (Rating) object;//raterId-simiValue
+				Rater rater = RaterDatabase.getRater(rating.getItem());
+				Double movieRating = rater.getRating(movie.getID());
+				weightedRating += movieRating * rating.getValue();
+				++ratingCount;
+			}
+			if(ratingCount>=minimalRaters) {
+				Rating rating = new Rating(movie.getID(), weightedRating/ratingCount);
+				ratingList.add(rating);				
+			}			
+		}    	
+    	return ratingList;
     }
     
     /**

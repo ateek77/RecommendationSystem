@@ -45,4 +45,16 @@ public class MovieRunnerSimilarRatings {
 //			+" "+ MovieDatabase.getGenres(rating.getItem()));
 //		}		
 	}
+	public void printSimilarRatings() {
+		String raterId ="65";
+		Integer minimalRaters = 5 ,
+				numSimilarRaters = 20;
+		
+		List ratingList = fourthRatings.getSimilarRatings(raterId, numSimilarRaters, minimalRaters);
+		for (Object object : ratingList) {
+			Rating rating = (Rating) object;
+			String movieName = MovieDatabase.getMovie(rating.getItem());
+			System.out.println("movie = " + movieName + " weighted_avg = " + rating.getValue());
+		}
+	}
 }

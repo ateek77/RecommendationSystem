@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -39,12 +40,15 @@ public class RaterDatabase {
         reader.read();
         CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withSkipHeaderRecord(true));
         //CSVParser csvp = fr.getCSVParser();
-        for(CSVRecord rec : csvParser) {
-                String id = rec.get("rater_id");
-                String item = rec.get("movie_id");
-                String rating = rec.get("rating");
-                addRaterRating(id,item,Double.parseDouble(rating));
-        } 
+        Iterator itr  = csvParser.iterator();
+        itr.next();
+        while(itr.hasNext()) {
+        	CSVRecord rec= (CSVRecord) itr.next();
+        	String id = rec.get(0);
+            String item = rec.get(1);
+            String rating = rec.get(2);
+            addRaterRating(id,item,Double.parseDouble(rating));                   	
+        }
     }
     
     /**
@@ -56,14 +60,14 @@ public class RaterDatabase {
     public static void addRaterRating(String raterID, String movieID, double rating) {
         initialize(); 
         Rater rater =  null;
-                if (ourRaters.containsKey(raterID)) {
-                    rater = ourRaters.get(raterID); 
-                } 
-                else { 
-                    rater = new EfficientRater(raterID);
-                    ourRaters.put(raterID,rater);
-                 }
-                 rater.addRating(movieID,rating);
+        if (ourRaters.containsKey(raterID)) {
+            rater = ourRaters.get(raterID); 
+        } 
+        else { 
+            rater = new EfficientRater(raterID);
+            ourRaters.put(raterID,rater);
+         }
+         rater.addRating(movieID,rating);
     } 
 	         
     /**
