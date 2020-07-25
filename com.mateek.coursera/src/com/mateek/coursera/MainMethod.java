@@ -21,6 +21,10 @@ public class MainMethod {
 //		movieRunnerWithFilters.printAverageRatingsByYearAfterAndGenre();
 		//movieRunnerWithFilters.printAverageRatingsByDirectorsAndMinutes();
 		MovieRunnerSimilarRatings movieRunnerSimilarRatings = new MovieRunnerSimilarRatings();
-		movieRunnerSimilarRatings.printSimilarRatings();
+//		movieRunnerSimilarRatings.printSimilarRatings();
+//		movieRunnerSimilarRatings.printSimilarRatingsByGenre();
+//		movieRunnerSimilarRatings.printSimilarRatingsByDirector();
+//		movieRunnerSimilarRatings.printSimilarRatingsByGenreAndMinutes();
+		movieRunnerSimilarRatings.printSimilarRatingsByYearAfterAndMinutes();
 	}
 }

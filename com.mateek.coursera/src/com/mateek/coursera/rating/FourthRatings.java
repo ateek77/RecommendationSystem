@@ -1,6 +1,7 @@
 package com.mateek.coursera.rating;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -141,13 +142,15 @@ public class FourthRatings {
 		Iterator it = ratersList.iterator();
 		while(it.hasNext()){
 			Rater tRater = (Rater) it.next();
-			Double similar = dotProduct(mRater, tRater);
-			if(similar >= 0) {
-				Rating rating = new Rating(tRater.getID(),similar);
+			Double weight = dotProduct(mRater, tRater);
+			if(weight >= 0) {
+				Rating rating = new Rating(tRater.getID(),weight);
 				ratingList.add(rating);
 			}			
+//			Rating rating = new Rating(tRater.getID(),weight);
+//			ratingList.add(rating);
 		}   	
-		ratingList.sort(null);
+		ratingList.sort(Comparator.reverseOrder());
     	return ratingList;
 	}
     /**
@@ -159,13 +162,14 @@ public class FourthRatings {
      * @param raterId
      * @param numSimilarRaters
      * @param minimalRaters
-     * @return
+     * @return List- Rating
      */
     public List getSimilarRatings(String raterId,Integer numSimilarRaters,Integer minimalRaters) {
     	List ratingList = new ArrayList<Rating>();
-    	List similarRater = getSimilarities(raterId);// return rater id and similarity
-    	for(int i = numSimilarRaters; i< similarRater.size(); ++i ) {
-    		similarRater.remove(i);
+    	List mRater = getSimilarities(raterId);// return rater id and similarity
+    	List similarRater = new ArrayList<Rating>();
+    	for(int i = 0; i< numSimilarRaters; ++i ) {
+    		similarRater.add(mRater.get(i));
     	}
     	
     	List movieList = MovieDatabase.filterBy(new TrueFilter());
@@ -174,9 +178,11 @@ public class FourthRatings {
 			Integer ratingCount = 0;
 			Double weightedRating = new Double(0);
 			for (Object object : similarRater) {
-				Rating rating = (Rating) object;//raterId-simiValue
+				Rating rating = (Rating) object;//raterId-weightValue
 				Rater rater = RaterDatabase.getRater(rating.getItem());
 				Double movieRating = rater.getRating((String) movieId);
+				if(movieRating == -1)
+					continue;
 				weightedRating += movieRating * rating.getValue();
 				++ratingCount;
 			}
@@ -185,35 +191,39 @@ public class FourthRatings {
 				ratingList.add(rating);				
 			}			
 		}    	
+    	ratingList.sort(Comparator.reverseOrder());
     	return ratingList;
     }
     
-    
+    //update the function
     public List getSimilarRatingsByFilter(String raterId,Integer numSimilarRaters,Integer minimalRaters, Filter filterCriteria) {
     	List ratingList = new ArrayList<Rating>();
-    	List similarRater = getSimilarities(raterId);// return rater id and similarity
-    	for(int i = numSimilarRaters; i< similarRater.size(); ++i ) {
-    		similarRater.remove(i);
+    	List mRater = getSimilarities(raterId);// return rater id and similarity
+    	List similarRater = new ArrayList<Rating>();
+    	for(int i = 0; i< numSimilarRaters; ++i ) {
+    		similarRater.add(mRater.get(i));
     	}
     	
     	List movieList = MovieDatabase.filterBy(filterCriteria);
     	
-    	for (Object tMovie : movieList) {
-			Movie movie = (Movie) tMovie;
+    	for (Object movieId : movieList) {			
 			Integer ratingCount = 0;
 			Double weightedRating = new Double(0);
 			for (Object object : similarRater) {
-				Rating rating = (Rating) object;//raterId-simiValue
+				Rating rating = (Rating) object;//raterId-weightValue
 				Rater rater = RaterDatabase.getRater(rating.getItem());
-				Double movieRating = rater.getRating(movie.getID());
+				Double movieRating = rater.getRating((String) movieId);
+				if(movieRating == -1)
+					continue;
 				weightedRating += movieRating * rating.getValue();
 				++ratingCount;
 			}
 			if(ratingCount>=minimalRaters) {
-				Rating rating = new Rating(movie.getID(), weightedRating/ratingCount);
+				Rating rating = new Rating((String) movieId, weightedRating/ratingCount);
 				ratingList.add(rating);				
 			}			
 		}    	
+    	ratingList.sort(Comparator.reverseOrder());
     	return ratingList;
     }
     
