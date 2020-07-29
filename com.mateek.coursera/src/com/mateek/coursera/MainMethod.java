@@ -1,5 +1,7 @@
 package com.mateek.coursera;
 
+import java.util.List;
+
 public class MainMethod {
 	public static void main(String[] args) {
 //		FirstRatings finalRatings = new FirstRatings();
@@ -20,11 +22,18 @@ public class MainMethod {
 //		movieRunnerWithFilters.printAverageRatingsByDirectors();
 //		movieRunnerWithFilters.printAverageRatingsByYearAfterAndGenre();
 		//movieRunnerWithFilters.printAverageRatingsByDirectorsAndMinutes();
-		MovieRunnerSimilarRatings movieRunnerSimilarRatings = new MovieRunnerSimilarRatings();
+//		MovieRunnerSimilarRatings movieRunnerSimilarRatings = new MovieRunnerSimilarRatings();
 //		movieRunnerSimilarRatings.printSimilarRatings();
 //		movieRunnerSimilarRatings.printSimilarRatingsByGenre();
 //		movieRunnerSimilarRatings.printSimilarRatingsByDirector();
 //		movieRunnerSimilarRatings.printSimilarRatingsByGenreAndMinutes();
-		movieRunnerSimilarRatings.printSimilarRatingsByYearAfterAndMinutes();
+//		movieRunnerSimilarRatings.printSimilarRatingsByYearAfterAndMinutes();
+		RecommendationRunner recommendationRunner = new  RecommendationRunner();
+		List movieList = recommendationRunner.getItemsToRate();
+		for (Object object : movieList) {
+			System.out.println("movie id : " + object);
+		}
+		
+		recommendationRunner.printRecommendationsFor("9393932");
 	}
 }

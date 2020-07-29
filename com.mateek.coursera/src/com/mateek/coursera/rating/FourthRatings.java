@@ -168,7 +168,7 @@ public class FourthRatings {
     	List ratingList = new ArrayList<Rating>();
     	List mRater = getSimilarities(raterId);// return rater id and similarity
     	List similarRater = new ArrayList<Rating>();
-    	for(int i = 0; i< numSimilarRaters; ++i ) {
+    	for(int i = 0; i< numSimilarRaters && i < mRater.size() ; ++i ) {
     		similarRater.add(mRater.get(i));
     	}
     	
